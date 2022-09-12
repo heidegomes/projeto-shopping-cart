@@ -3,6 +3,7 @@
 
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
+// Iniciando o projeto
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
  * @param {string} imageSource - URL da imagem.
