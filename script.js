@@ -55,7 +55,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  * @param {Element} product - Elemento do produto.
  * @returns {string} ID do produto.
  */
-const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
+const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -97,7 +97,6 @@ const addEventButtons = () => {
     productSelected[i].addEventListener('click', recebeClick); 
   }
 };
-
 
 const createElementItem = async () => {
   const selectItems = document.querySelector('.items');
