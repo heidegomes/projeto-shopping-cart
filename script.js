@@ -66,11 +66,18 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @returns {Element} Elemento de um item do carrinho.
  */
 
+const cartItemClickListener = (event) => {
+  const itemCart = event.target;
+  console.log(itemCart);
+  const selectItemsCart = document.querySelector('.cart__item');
+  selectItemsCart.remove('cart__item');
+};
+
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  // li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', cartItemClickListener);
   return li;
 };
 
@@ -86,10 +93,11 @@ const recebeClick = async (evento) => {
 // funcao para add evento em todos os botões
 const addEventButtons = () => {
   const productSelected = document.getElementsByClassName('item__add');
-for (let i = 0; i < productSelected.length; i += 1) {
+  for (let i = 0; i < productSelected.length; i += 1) {
     productSelected[i].addEventListener('click', recebeClick); 
   }
 };
+
 
 const createElementItem = async () => {
   const selectItems = document.querySelector('.items');
@@ -97,7 +105,7 @@ const createElementItem = async () => {
   for (let i = 0; i < data.length; i += 1) {
     selectItems.appendChild(createProductItemElement(data[i]));
   }
-  addEventButtons();
+  addEventButtons();  
 };
 
 window.onload = async () => { 
