@@ -1,10 +1,10 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
-
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
-
 // Iniciando o projeto
 /**
+ * 
+ 
  * Função responsável por criar e retornar o elemento de imagem do produto.
  * @param {string} imageSource - URL da imagem.
  * @returns {Element} Elemento de imagem do produto.
@@ -88,13 +88,16 @@ const recebeClick = async (evento) => {
   const infoItem = await fetchItem(products);
   const selectItems = document.querySelector('.cart__items');
   selectItems.appendChild(createCartItemElement(infoItem));
+  // console.log(selectItems.innerHTML);
+  saveCartItems(selectItems.innerHTML);
 };
 
 // funcao para add evento em todos os botões
 const addEventButtons = () => {
   const productSelected = document.getElementsByClassName('item__add');
   for (let i = 0; i < productSelected.length; i += 1) {
-    productSelected[i].addEventListener('click', recebeClick); 
+    productSelected[i].addEventListener('click', recebeClick);
+    // productSelected[i].addEventListener('click', saveCartItems()); 
   }
 };
 
@@ -109,4 +112,14 @@ const createElementItem = async () => {
 
 window.onload = async () => { 
   await createElementItem();
+  const itensCart = getSavedCartItems();
+  console.log(itensCart);
+  const cart = document.querySelector('.cart__items');
+  cart.innerHTML = itensCart;
+  const itensCartLocalStorage = document.querySelectorAll('.cart__item'); // fazer um query selector all para pegar todas as lis novamente
+  console.log(itensCartLocalStorage);
+  for (let i = 0; i < itensCartLocalStorage.length; i += 1) {
+    itensCartLocalStorage[i].addEventListener('click', cartItemClickListener);
+  }
+  // utilizando um laço de repetição devo percorrer cada uma das li e reatribuir o mesmo evento
 };
