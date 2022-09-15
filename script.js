@@ -4,7 +4,6 @@
 // Iniciando o projeto
 /**
  * 
- 
  * Função responsável por criar e retornar o elemento de imagem do produto.
  * @param {string} imageSource - URL da imagem.
  * @returns {Element} Elemento de imagem do produto.
@@ -68,7 +67,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
 
 const cart = document.querySelector('.cart__items'); // pega ol do carrinho
 
-const price = () => {
+const price2 = () => {
   const list = document.querySelectorAll('.cart__item');
   console.log(list);
   const values = [];
@@ -82,7 +81,7 @@ const price = () => {
 };
 
 const totalprice = () => {
-  const total = price();
+  const total = price2();
   console.log(total);
   let subTotal = 0;
   for (let i = 0; i < total.length; i += 1) {
