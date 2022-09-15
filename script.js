@@ -123,8 +123,24 @@ const createElementItem = async () => {
   addEventButtons();  
 };
 
+const loading = () => {
+  const container = document.querySelector('.container');
+  console.log(container);
+  const paragraph = document.createElement('p');
+  paragraph.classList = 'loading';
+  paragraph.innerText = 'carregando...';
+  container.appendChild(paragraph);
+};
+
+const clearLoading = () => {
+  const removeLoading = document.querySelector('.loading');
+  removeLoading.remove();
+};
+
 window.onload = async () => { 
+  loading();
   await createElementItem();
+  clearLoading();
   const itensCart = getSavedCartItems();
   // console.log(itensCart);
   cart.innerHTML = itensCart;
