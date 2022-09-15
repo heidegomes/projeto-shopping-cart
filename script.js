@@ -88,8 +88,6 @@ const buttonEmptyCart = () => {
   buttonEmpty.addEventListener('click', emptyCart);
 };
 
-
-
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
