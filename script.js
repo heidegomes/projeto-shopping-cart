@@ -55,7 +55,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  * @param {Element} product - Elemento do produto.
  * @returns {string} ID do produto.
  */
-const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
+// const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -67,6 +67,31 @@ const getIdFromProductItem = (product) => product.querySelector('span.item_id').
  */
 
 const cart = document.querySelector('.cart__items'); // pega ol do carrinho
+
+const price = () => {
+  const list = document.querySelectorAll('.cart__item');
+  console.log(list);
+  const values = [];
+  for (let i = 0; i < list.length; i += 1) {
+    const e = Number(list[i].innerText.split('$')[1]);
+    console.log(e);
+    // sum += e[i];
+    values.push(e);
+  }
+  return values;
+};
+
+const totalprice = () => {
+  const total = price();
+  console.log(total);
+  let subTotal = 0;
+  for (let i = 0; i < total.length; i += 1) {
+    subTotal += total[i];
+  }
+  // console.log(subTotal);
+  const sectionCart = document.querySelector('.total-price');
+  sectionCart.innerText = subTotal;
+};
 
 const cartItemClickListener = (event) => {
   event.target.remove();
@@ -138,31 +163,6 @@ const loading = () => {
 const clearLoading = () => {
   const removeLoading = document.querySelector('.loading');
   removeLoading.remove();
-};
-
-const price = () => {
-  const list = document.querySelectorAll('.cart__item');
-  console.log(list);
-  const values = [];
-  for (let i = 0; i < list.length; i += 1) {
-    const e = Number(list[i].innerText.split('$')[1]);
-    console.log(e);
-    // sum += e[i];
-    values.push(e);
-  }
-  return values;
-};
-
-const totalprice = () => {
-  const total = price();
-  console.log(total);
-  let subTotal = 0;
-  for (let i = 0; i < total.length; i += 1) {
-    subTotal += total[i];
-  }
-  // console.log(subTotal);
-  const sectionCart = document.querySelector('.total-price');
-  sectionCart.innerText = subTotal;
 };
 
 window.onload = async () => { 
