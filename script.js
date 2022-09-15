@@ -71,6 +71,7 @@ const cart = document.querySelector('.cart__items'); // pega ol do carrinho
 const cartItemClickListener = (event) => {
   event.target.remove();
   saveCartItems(cart.innerHTML);
+  totalprice();
   // console.log(itemCart);
   // const selectItemsCart = document.querySelector('.cart__item');
   // selectItemsCart.remove('cart__item');
@@ -80,6 +81,7 @@ const emptyCart = () => {
   console.log('cliquei aqui!');
   cart.innerHTML = '';
   localStorage.clear();
+  totalprice();
 };
 
 const buttonEmptyCart = () => {
@@ -104,6 +106,7 @@ const recebeClick = async (evento) => {
   cart.appendChild(createCartItemElement(infoItem));
   // console.log(selectItems.innerHTML);
   saveCartItems(cart.innerHTML);
+  totalprice();
 };
 
 // funcao para add evento em todos os botões
@@ -125,7 +128,7 @@ const createElementItem = async () => {
 
 const loading = () => {
   const container = document.querySelector('.container');
-  console.log(container);
+  // console.log(container);
   const paragraph = document.createElement('p');
   paragraph.classList = 'loading';
   paragraph.innerText = 'carregando...';
@@ -137,6 +140,31 @@ const clearLoading = () => {
   removeLoading.remove();
 };
 
+const price = () => {
+  const list = document.querySelectorAll('.cart__item');
+  console.log(list);
+  const values = [];
+  for (let i = 0; i < list.length; i += 1) {
+    const e = Number(list[i].innerText.split('$')[1]);
+    console.log(e);
+    // sum += e[i];
+    values.push(e);
+  }
+  return values;
+};
+
+const totalprice = () => {
+  const total = price();
+  console.log(total);
+  let subTotal = 0;
+  for (let i = 0; i < total.length; i += 1) {
+    subTotal += total[i];
+  }
+  // console.log(subTotal);
+  const sectionCart = document.querySelector('.total-price');
+  sectionCart.innerText = subTotal;
+};
+
 window.onload = async () => { 
   loading();
   await createElementItem();
@@ -144,6 +172,7 @@ window.onload = async () => {
   const itensCart = getSavedCartItems();
   // console.log(itensCart);
   cart.innerHTML = itensCart;
+  totalprice();
   const itensCartLocalStorage = document.querySelectorAll('.cart__item'); // fazer um query selector all para pegar todas as lis novamente
   // console.log(itensCartLocalStorage);
   for (let i = 0; i < itensCartLocalStorage.length; i += 1) { // utilizando um laço de repetição devo percorrer cada uma das li e reatribuir o mesmo evento
