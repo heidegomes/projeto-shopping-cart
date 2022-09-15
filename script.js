@@ -66,12 +66,29 @@ const getIdFromProductItem = (product) => product.querySelector('span.item_id').
  * @returns {Element} Elemento de um item do carrinho.
  */
 
+const cart = document.querySelector('.cart__items'); // pega ol do carrinho
+
 const cartItemClickListener = (event) => {
-  const itemCart = event.target;
-  console.log(itemCart);
-  const selectItemsCart = document.querySelector('.cart__item');
-  selectItemsCart.remove('cart__item');
+  event.target.remove();
+  saveCartItems(cart.innerHTML);
+  // console.log(itemCart);
+  // const selectItemsCart = document.querySelector('.cart__item');
+  // selectItemsCart.remove('cart__item');
 };
+
+const emptyCart = () => {
+  console.log('cliquei aqui!');
+  cart.innerHTML = '';
+  localStorage.clear();
+};
+
+const buttonEmptyCart = () => {
+  const buttonEmpty = document.querySelector('.empty-cart');
+  // console.log(buttonEmpty);
+  buttonEmpty.addEventListener('click', emptyCart);
+};
+
+
 
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
@@ -86,10 +103,9 @@ const recebeClick = async (evento) => {
   // console.log(product)
   const products = product.querySelector('.item_id').innerText;
   const infoItem = await fetchItem(products);
-  const selectItems = document.querySelector('.cart__items');
-  selectItems.appendChild(createCartItemElement(infoItem));
+  cart.appendChild(createCartItemElement(infoItem));
   // console.log(selectItems.innerHTML);
-  saveCartItems(selectItems.innerHTML);
+  saveCartItems(cart.innerHTML);
 };
 
 // funcao para add evento em todos os botões
@@ -97,7 +113,6 @@ const addEventButtons = () => {
   const productSelected = document.getElementsByClassName('item__add');
   for (let i = 0; i < productSelected.length; i += 1) {
     productSelected[i].addEventListener('click', recebeClick);
-    // productSelected[i].addEventListener('click', saveCartItems()); 
   }
 };
 
@@ -113,13 +128,12 @@ const createElementItem = async () => {
 window.onload = async () => { 
   await createElementItem();
   const itensCart = getSavedCartItems();
-  console.log(itensCart);
-  const cart = document.querySelector('.cart__items');
+  // console.log(itensCart);
   cart.innerHTML = itensCart;
   const itensCartLocalStorage = document.querySelectorAll('.cart__item'); // fazer um query selector all para pegar todas as lis novamente
-  console.log(itensCartLocalStorage);
-  for (let i = 0; i < itensCartLocalStorage.length; i += 1) {
+  // console.log(itensCartLocalStorage);
+  for (let i = 0; i < itensCartLocalStorage.length; i += 1) { // utilizando um laço de repetição devo percorrer cada uma das li e reatribuir o mesmo evento
     itensCartLocalStorage[i].addEventListener('click', cartItemClickListener);
   }
-  // utilizando um laço de repetição devo percorrer cada uma das li e reatribuir o mesmo evento
+  buttonEmptyCart();
 };
